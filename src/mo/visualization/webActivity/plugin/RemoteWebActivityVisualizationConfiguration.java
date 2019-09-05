@@ -17,18 +17,21 @@ public class RemoteWebActivityVisualizationConfiguration implements Visualizable
     private static final String[] CREATORS = new String[] {"mo.capture.webActivity.plugin.WebBrowsingActivityRecorder"};
     private VisualizationConfiguration temporalConfig;
     private RemoteWebActivityPlayer player;
-    public static final String CONTENT_MESSAGE_KEY = "data";
-    public static final String PLUGIN_MESSAGE_KEY = "webActivity";
+    private static final String CONTENT_MESSAGE_KEY = "data";
+    private static final String PLUGIN_MESSAGE_KEY = "webActivity";
 
-    public RemoteWebActivityVisualizationConfiguration(VisualizationConfiguration temporalConfig) {
+    RemoteWebActivityVisualizationConfiguration(VisualizationConfiguration temporalConfig) {
         this.temporalConfig = temporalConfig;
         this.player = new RemoteWebActivityPlayer();
     }
 
     @Override
     public void onMessageReceived(Object o, PetitionResponse petitionResponse) {
+        System.out.println(petitionResponse);
         if(petitionResponse.getType().equals(PLUGIN_MESSAGE_KEY) && petitionResponse.getHashMap().containsKey(CONTENT_MESSAGE_KEY)){
+            System.out.println("ENTRE");
             String jsonData = petitionResponse.getHashMap().get(CONTENT_MESSAGE_KEY).toString();
+            System.out.println("JSON DATA: " + jsonData);
             this.player.getPanel().updatePanelData(jsonData);
         }
     }

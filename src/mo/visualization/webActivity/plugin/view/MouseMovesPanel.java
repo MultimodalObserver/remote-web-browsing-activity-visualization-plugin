@@ -1,15 +1,15 @@
 package mo.visualization.webActivity.plugin.view;
 
-import mo.visualization.webActivity.plugin.model.MouseClick;
 import mo.visualization.webActivity.plugin.model.MouseMove;
 
 import java.util.List;
 
-public class MouseMovesPanel extends BasePanel {
+class MouseMovesPanel extends BasePanel {
 
-    public MouseMovesPanel() {
+    MouseMovesPanel() {
         super();
         this.tableHeaders = this.getTableHeaders();
+        this.addHeaders();
     }
 
     @Override
@@ -38,8 +38,8 @@ public class MouseMovesPanel extends BasePanel {
                 String.valueOf(mouseMove.getCaptureTimestamp())
         };
         this.tableModel.addRow(rowData);
-        int rowCount = this.table.getRowCount();
-        this.tableModel.fireTableRowsInserted(rowCount, rowCount + 1);
+        /*int rowCount = this.table.getRowCount();
+        this.tableModel.fireTableRowsInserted(rowCount, rowCount + 1);*/
     }
 
 }

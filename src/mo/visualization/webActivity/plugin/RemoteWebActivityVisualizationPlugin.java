@@ -7,6 +7,7 @@ import mo.core.plugin.Extension;
 import mo.organization.Configuration;
 import mo.visualization.webActivity.plugin.model.VisualizationConfiguration;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -20,10 +21,10 @@ import java.util.List;
 public class RemoteWebActivityVisualizationPlugin implements VisualizationStreamingProvider{
 
     private static final String[] CREATORS = new String[] {"mo.capture.webActivity.plugin.WebBrowsingActivityRecorder"};
-    List<Configuration> configurations;
+    private List<Configuration> configurations;
 
-    public RemoteWebActivityVisualizationPlugin(List<Configuration> configurations) {
-        this.configurations = configurations;
+    public RemoteWebActivityVisualizationPlugin() {
+        this.configurations = new ArrayList<>();
     }
 
     @Override

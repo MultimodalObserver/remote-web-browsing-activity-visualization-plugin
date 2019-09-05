@@ -1,7 +1,5 @@
 package mo.visualization.webActivity.plugin;
 
-import com.google.gson.Gson;
-import com.google.gson.JsonParser;
 import mo.communication.streaming.visualization.PlayableStreaming;
 import mo.core.ui.dockables.DockableElement;
 import mo.core.ui.dockables.DockablesRegistry;
@@ -17,7 +15,7 @@ public class RemoteWebActivityPlayer implements PlayableStreaming {
     private PlayerPanel panel;
     private static final Logger LOGGER = Logger.getLogger(RemoteWebActivityPlayer.class.getName());
 
-    public RemoteWebActivityPlayer() {
+    RemoteWebActivityPlayer() {
         this.panel = new PlayerPanel();
         try {
             SwingUtilities.invokeAndWait(() -> {
@@ -44,7 +42,7 @@ public class RemoteWebActivityPlayer implements PlayableStreaming {
 
     }
 
-    public PlayerPanel getPanel() {
+    PlayerPanel getPanel() {
         return panel;
     }
 }

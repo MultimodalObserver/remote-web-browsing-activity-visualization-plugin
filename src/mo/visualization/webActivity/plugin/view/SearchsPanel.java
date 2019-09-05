@@ -2,7 +2,7 @@ package mo.visualization.webActivity.plugin.view;
 
 import java.util.List;
 
-public class SearchsPanel extends BasePanel{
+class SearchsPanel extends BasePanel{
 
     @Override
     List<String> getTableHeaders() {

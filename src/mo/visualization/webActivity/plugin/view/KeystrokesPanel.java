@@ -4,11 +4,12 @@ import mo.visualization.webActivity.plugin.model.Keystroke;
 
 import java.util.List;
 
-public class KeystrokesPanel extends BasePanel {
+class KeystrokesPanel extends BasePanel {
 
-    public KeystrokesPanel() {
+    KeystrokesPanel() {
         super();
         this.tableHeaders = this.getTableHeaders();
+        this.addHeaders();
     }
 
     @Override
@@ -30,8 +31,8 @@ public class KeystrokesPanel extends BasePanel {
                 keystroke.getCaptureTimestamp()
         };
         this.tableModel.addRow(rowData);
-        int rowCount = this.table.getRowCount();
-        this.tableModel.fireTableRowsInserted(rowCount, rowCount + 1);
+        /*int rowCount = this.table.getRowCount();
+        this.tableModel.fireTableRowsInserted(rowCount, rowCount + 1);*/
     }
 
 

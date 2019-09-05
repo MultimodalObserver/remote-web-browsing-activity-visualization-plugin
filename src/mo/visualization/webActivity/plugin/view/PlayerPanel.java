@@ -9,11 +9,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class PlayerPanel extends JTabbedPane{
-    private static final int KEYSTROKES_TAB_INDEX = 0;
-    private static final int MOUSE_MOVES_TAB_INDEX = 1;
-    private static final int MOUSE_CLICKS_TAB_INDEX = 2;
-    private static final int MOUSE_UPS_TAB_INDEX = 3;
-    private JTabbedPane tabbedPane;
+
     private Map<String, BasePanel> panelsMap;
 
 
@@ -26,10 +22,9 @@ public class PlayerPanel extends JTabbedPane{
     private static final String MOUSE_UPS_DATA_TYPE = "mouseUps";
     private static final String SEARCHS_DATA_TYPE = "searchs";
     private static final String TABS_DATA_TYPE = "tabs";
-    private static final String[] DATA_TYPES= new String[]{KEYSTROKES_DATA_TYPE,MOUSE_UPS_DATA_TYPE,MOUSE_CLICKS_DATA_TYPE
+    private static final String[] DATA_TYPES= new String[]{KEYSTROKES_DATA_TYPE,MOUSE_MOVES_DATA_TYPE,MOUSE_CLICKS_DATA_TYPE
             ,MOUSE_UPS_DATA_TYPE,SEARCHS_DATA_TYPE,TABS_DATA_TYPE};
 
-    private I18n i18n;
     private final Gson gson;
 
 
@@ -40,14 +35,14 @@ public class PlayerPanel extends JTabbedPane{
      * Mostraremos cada tipo de dato en una tab correspondiente
      * */
     public PlayerPanel(){
-        this.i18n = new I18n(PlayerPanel.class);
+        I18n i18n = new I18n(PlayerPanel.class);
         this.panelsMap = this.createPanelsMap();
         this.gson = new Gson();
-        this.tabbedPane = new JTabbedPane();
+        JTabbedPane tabbedPane = new JTabbedPane();
         for(String dataType : DATA_TYPES){
-            this.tabbedPane.addTab(this.i18n.s(dataType + "PanelName"), this.panelsMap.get(dataType));
+            tabbedPane.addTab(i18n.s(dataType + "PanelName"), this.panelsMap.get(dataType));
         }
-        this.tabbedPane.setVisible(true);
+        tabbedPane.setVisible(true);
         this.add(tabbedPane);
     }
 
@@ -86,11 +81,8 @@ public class PlayerPanel extends JTabbedPane{
     public void updatePanelData(String data){
         DataMessage dataMessage = this.gson.fromJson(data, DataMessage.class);
         BasePanel panel = this.panelsMap.get(dataMessage.getDataType());
-        panel.updateData(dataMessage.getData());
-        panel.showPanel(true);
-    }
-
-    public void showPanel(boolean show){
-        this.setVisible(show);
+        String dataMessageData = dataMessage.getData();
+        panel.updateData(dataMessageData);
+        panel.showPanel();
     }
 }

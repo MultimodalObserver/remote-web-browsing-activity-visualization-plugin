@@ -1,15 +1,15 @@
 package mo.visualization.webActivity.plugin.view;
 
-import mo.visualization.webActivity.plugin.model.MouseMove;
 import mo.visualization.webActivity.plugin.model.MouseUp;
 
 import java.util.List;
 
-public class MouseUpsPanel extends BasePanel {
+class MouseUpsPanel extends BasePanel {
 
-    public MouseUpsPanel() {
+    MouseUpsPanel() {
         super();
         this.tableHeaders = this.getTableHeaders();
+        this.addHeaders();
     }
 
     @Override
@@ -28,11 +28,10 @@ public class MouseUpsPanel extends BasePanel {
                 mouseUp.getPageUrl(),
                 mouseUp.getPageTitle(),
                 mouseUp.getSelectedText(),
-                /* VER EL TEMA DE PASAR EL LONG DE CAPTURA A TIMESTAMO ENTENDIBLE PARA USUARIO*/
                 String.valueOf(mouseUp.getCaptureTimestamp())
         };
         this.tableModel.addRow(rowData);
-        int rowCount = this.table.getRowCount();
-        this.tableModel.fireTableRowsInserted(rowCount, rowCount + 1);
+       /* int rowCount = this.table.getRowCount();
+        this.tableModel.fireTableRowsInserted(rowCount, rowCount + 1);*/
     }
 }

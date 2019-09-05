@@ -5,23 +5,22 @@ import mo.core.I18n;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class BasePanel extends JPanel {
-    protected JLabel noDataLabel;
-    protected JTable table;
-    protected JScrollPane scrollPane;
-    protected DefaultTableModel tableModel;
-    protected I18n i18n;
-    protected List<String> tableHeaders;
-    protected static final Gson gson = new Gson();
+abstract class BasePanel extends JPanel {
+    /*protected JLabel noDataLabel;*/
+    DefaultTableModel tableModel;
+    I18n i18n;
+    List<String> tableHeaders;
+    static final Gson gson = new Gson();
 
 
-    protected BasePanel(){
+    BasePanel(){
         this.i18n = new I18n(BasePanel.class);
         this.initComponents();
-        this.addComponents();
+        this.setLayout(new GridBagLayout());
     }
 
     abstract List<String> getTableHeaders();
@@ -29,39 +28,40 @@ public abstract class BasePanel extends JPanel {
 
 
 
-    public void showPanel(boolean show){
-        this.setVisible(show);
-    }
-
-    public void setScrollPaneVisibility(boolean scrollPaneVisibility){
-        this.noDataLabel.setVisible(!scrollPaneVisibility);
-        this.scrollPane.setVisible(scrollPaneVisibility);
+    void showPanel(){
+        this.setVisible(true);
     }
 
     private void initComponents(){
         /* Iniciamos la tabla y el modelo*/
         this.tableModel = new DefaultTableModel();
-        this.table = new JTable(this.tableModel);
-        this.table.setFillsViewportHeight(true);
-        this.table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        this.table.setCellSelectionEnabled(true);
-        this.table.setShowHorizontalLines(false);
+        JTable table = new JTable(this.tableModel);
+        table.setFillsViewportHeight(true);
+        table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        table.setCellSelectionEnabled(true);
+        table.setShowHorizontalLines(false);
+        table.tableChanged(null);
+
         /* Iniciamos el scroll pane que tendra la tabla */
-        this.scrollPane = new JScrollPane(this.table);
-        this.scrollPane.setVisible(true);
-        /* *//* Iniciamos el label de no data y se muestra por defecto*//*
-        this.noDataLabel = new JLabel(this.i18n.s("noDataLabelText"));
-        this.noDataLabel.setLocation(this.getWidth() /2,this.getHeight()/2);*/
-        this.add(this.scrollPane);
+        JScrollPane scrollPane = new JScrollPane(table);
+        scrollPane.setVisible(true);
+
+        //this.noDataLabel = new JLabel(this.i18n.s("noDataLabelText"));
+        GridBagConstraints constraints = new GridBagConstraints();
+        constraints.gridx = 0;
+        constraints.gridy = 0;
+        constraints.gridheight = 0;
+        constraints.gridwidth = 0;
+        constraints.weighty = 1.0;
+        constraints.weightx = 1.0;
+        constraints.fill = GridBagConstraints.BOTH;
+        constraints.anchor = GridBagConstraints.CENTER;
+        constraints.insets = new Insets(10,10,10,10);
+        this.add(scrollPane, constraints);
         this.setVisible(true);
     }
 
-    private void addComponents() {
-        this.add(scrollPane);
-        /* this.add(noDataLabel);*/
-    }
-
-    public List<String> initCommonsHeaders(){
+    List<String> initCommonsHeaders(){
         List<String> headers = new ArrayList<>();
         headers.add(this.i18n.s("browserColumnName"));
         headers.add(this.i18n.s("pageUrlColumnName"));
@@ -69,7 +69,7 @@ public abstract class BasePanel extends JPanel {
         return headers;
     }
 
-    public void addPositionHeaders(List<String> headers){
+    void addPositionHeaders(List<String> headers){
         headers.add(this.i18n.s("xPageColumnName"));
         headers.add(this.i18n.s("yPageColumnName"));
         headers.add(this.i18n.s("xClientColumnName"));
@@ -78,5 +78,11 @@ public abstract class BasePanel extends JPanel {
         headers.add(this.i18n.s("yScreenColumnName"));
         headers.add(this.i18n.s("xMovementColumnName"));
         headers.add(this.i18n.s("yMovementColumnName"));
+    }
+
+    void addHeaders(){
+        for(String header: this.tableHeaders){
+            this.tableModel.addColumn(header);
+        }
     }
 }

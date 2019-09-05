@@ -2,7 +2,7 @@ package mo.visualization.webActivity.plugin.view;
 
 import java.util.List;
 
-public class TabsPanel extends BasePanel{
+class TabsPanel extends BasePanel{
 
     @Override
     List<String> getTableHeaders() {
