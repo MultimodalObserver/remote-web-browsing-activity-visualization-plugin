@@ -38,12 +38,10 @@ public class PlayerPanel extends JTabbedPane{
         I18n i18n = new I18n(PlayerPanel.class);
         this.panelsMap = this.createPanelsMap();
         this.gson = new Gson();
-        JTabbedPane tabbedPane = new JTabbedPane();
         for(String dataType : DATA_TYPES){
-            tabbedPane.addTab(i18n.s(dataType + "PanelName"), this.panelsMap.get(dataType));
+            this.addTab(i18n.s(dataType + "PanelName"), this.panelsMap.get(dataType));
         }
-        tabbedPane.setVisible(true);
-        this.add(tabbedPane);
+        this.setVisible(true);
     }
 
     private Map<String, BasePanel> createPanelsMap(){
@@ -85,4 +83,5 @@ public class PlayerPanel extends JTabbedPane{
         panel.updateData(dataMessageData);
         panel.showPanel();
     }
+
 }

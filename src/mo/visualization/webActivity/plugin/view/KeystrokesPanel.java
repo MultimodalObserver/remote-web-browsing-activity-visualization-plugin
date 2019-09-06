@@ -10,6 +10,8 @@ class KeystrokesPanel extends BasePanel {
         super();
         this.tableHeaders = this.getTableHeaders();
         this.addHeaders();
+        this.columnWidths = new float[]{0.1f, 0.5f, 0.1f, 0.1f, 0.2f};
+        this.resizeColumns();
     }
 
     @Override

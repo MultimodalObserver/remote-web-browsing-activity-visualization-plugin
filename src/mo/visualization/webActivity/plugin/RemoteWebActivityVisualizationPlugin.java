@@ -2,6 +2,7 @@ package mo.visualization.webActivity.plugin;
 
 import mo.communication.streaming.capture.CaptureConfig;
 import mo.communication.streaming.visualization.VisualizationStreamingProvider;
+import mo.core.I18n;
 import mo.core.plugin.Extends;
 import mo.core.plugin.Extension;
 import mo.organization.Configuration;
@@ -22,14 +23,16 @@ public class RemoteWebActivityVisualizationPlugin implements VisualizationStream
 
     private static final String[] CREATORS = new String[] {"mo.capture.webActivity.plugin.WebBrowsingActivityRecorder"};
     private List<Configuration> configurations;
+    private I18n i18n;
 
     public RemoteWebActivityVisualizationPlugin() {
         this.configurations = new ArrayList<>();
+        this.i18n = new I18n(RemoteWebActivityVisualizationPlugin.class);
     }
 
     @Override
     public String getName() {
-        return "Remote Web Activity Visualization";
+        return this.i18n.s("pluginDisplayedName");
     }
 
     @Override

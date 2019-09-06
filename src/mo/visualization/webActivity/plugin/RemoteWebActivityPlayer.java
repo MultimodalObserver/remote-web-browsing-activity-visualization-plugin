@@ -16,10 +16,10 @@ public class RemoteWebActivityPlayer implements PlayableStreaming {
     private static final Logger LOGGER = Logger.getLogger(RemoteWebActivityPlayer.class.getName());
 
     RemoteWebActivityPlayer() {
-        this.panel = new PlayerPanel();
         try {
             SwingUtilities.invokeAndWait(() -> {
                 DockableElement e = new DockableElement();
+                this.panel = new PlayerPanel();
                 e.add(this.panel);
                 DockablesRegistry.getInstance().addAppWideDockable(e);
             });

@@ -10,6 +10,9 @@ class MouseClicksPanel extends BasePanel {
         super();
         this.tableHeaders = this.getTableHeaders();
         this.addHeaders();
+        this.columnWidths = new float[]{0.0415f, 0.1245f, 0.083f, 0.083f, 0.083f, 0.083f, 0.083f,
+                0.083f, 0.083f,0.083f, 0.0415f, 0.1245f};
+        this.resizeColumns();
     }
 
     @Override

@@ -5,6 +5,8 @@ import mo.core.I18n;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumn;
+import javax.swing.table.TableColumnModel;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,15 +14,17 @@ import java.util.List;
 abstract class BasePanel extends JPanel {
     /*protected JLabel noDataLabel;*/
     DefaultTableModel tableModel;
+    JTable table;
     I18n i18n;
     List<String> tableHeaders;
     static final Gson gson = new Gson();
+    float[] columnWidths;
 
 
     BasePanel(){
         this.i18n = new I18n(BasePanel.class);
-        this.initComponents();
         this.setLayout(new GridBagLayout());
+        this.initComponents();
     }
 
     abstract List<String> getTableHeaders();
@@ -35,23 +39,17 @@ abstract class BasePanel extends JPanel {
     private void initComponents(){
         /* Iniciamos la tabla y el modelo*/
         this.tableModel = new DefaultTableModel();
-        JTable table = new JTable(this.tableModel);
-        table.setFillsViewportHeight(true);
-        table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        table.setCellSelectionEnabled(true);
-        table.setShowHorizontalLines(false);
-        table.tableChanged(null);
-
-        /* Iniciamos el scroll pane que tendra la tabla */
-        JScrollPane scrollPane = new JScrollPane(table);
-        scrollPane.setVisible(true);
-
+        this.table = new JTable(this.tableModel);
+        this.table.setFillsViewportHeight(true);
+        this.table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        this.table.setCellSelectionEnabled(true);
+        this.table.setShowHorizontalLines(false);
+        this.table.tableChanged(null);
+        JScrollPane scrollPane = new JScrollPane(this.table);
         //this.noDataLabel = new JLabel(this.i18n.s("noDataLabelText"));
         GridBagConstraints constraints = new GridBagConstraints();
         constraints.gridx = 0;
         constraints.gridy = 0;
-        constraints.gridheight = 0;
-        constraints.gridwidth = 0;
         constraints.weighty = 1.0;
         constraints.weightx = 1.0;
         constraints.fill = GridBagConstraints.BOTH;
@@ -83,6 +81,18 @@ abstract class BasePanel extends JPanel {
     void addHeaders(){
         for(String header: this.tableHeaders){
             this.tableModel.addColumn(header);
+        }
+    }
+
+    void resizeColumns() {
+        TableColumn column;
+        TableColumnModel jTableColumnModel = this.table.getColumnModel();
+        int tableWidth = jTableColumnModel.getTotalColumnWidth();
+        int cantCols = jTableColumnModel.getColumnCount();
+        for (int i = 0; i < cantCols; i++) {
+            column = jTableColumnModel.getColumn(i);
+            int columnWidth = Math.round(this.columnWidths[i] * tableWidth);
+            column.setPreferredWidth(columnWidth);
         }
     }
 }
