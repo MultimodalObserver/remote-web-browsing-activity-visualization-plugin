@@ -5,6 +5,7 @@ import mo.core.I18n;
 import mo.visualization.webActivity.plugin.model.*;
 
 import javax.swing.*;
+import java.awt.*;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -81,7 +82,6 @@ public class PlayerPanel extends JTabbedPane{
         BasePanel panel = this.panelsMap.get(dataMessage.getDataType());
         String dataMessageData = dataMessage.getData();
         panel.updateData(dataMessageData);
-        panel.showPanel();
     }
 
 }

@@ -5,7 +5,7 @@ public class Keystroke {
     private String pageUrl;
     private String pageTitle;
     private String keyValue;
-    private String captureTimestamp;
+    private Long captureTimestamp;
 
 
     public String getBrowser() {
@@ -40,11 +40,11 @@ public class Keystroke {
         this.keyValue = keyValue;
     }
 
-    public String getCaptureTimestamp() {
+    public Long getCaptureTimestamp() {
         return captureTimestamp;
     }
 
-    public void setCaptureTimestamp(String captureTimestamp) {
+    public void setCaptureTimestamp(Long captureTimestamp) {
         this.captureTimestamp = captureTimestamp;
     }
 }

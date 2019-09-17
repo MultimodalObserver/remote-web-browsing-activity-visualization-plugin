@@ -25,15 +25,13 @@ class MouseUpsPanel extends BasePanel {
     @Override
     void updateData(String data) {
         MouseUp mouseUp = gson.fromJson(data, MouseUp.class);
-        Object[] rowData = new String[]{
+        Object[] rowData = new Object[]{
                 mouseUp.getBrowser(),
                 mouseUp.getPageUrl(),
                 mouseUp.getPageTitle(),
                 mouseUp.getSelectedText(),
-                String.valueOf(mouseUp.getCaptureTimestamp())
+                mouseUp.getCaptureTimestamp()
         };
         this.tableModel.addRow(rowData);
-       /* int rowCount = this.table.getRowCount();
-        this.tableModel.fireTableRowsInserted(rowCount, rowCount + 1);*/
     }
 }

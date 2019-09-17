@@ -10,15 +10,16 @@ class MouseClicksPanel extends BasePanel {
         super();
         this.tableHeaders = this.getTableHeaders();
         this.addHeaders();
-        this.columnWidths = new float[]{0.0415f, 0.1245f, 0.083f, 0.083f, 0.083f, 0.083f, 0.083f,
-                0.083f, 0.083f,0.083f, 0.0415f, 0.1245f};
+        this.columnWidths = new float[]{0.083f, 0.1245f, 0.083f, 0.083f, 0.083f, 0.083f,
+                0.083f, 0.083f,0.083f, 0.14525f, 0.06225f};
         this.resizeColumns();
     }
 
     @Override
     List<String> getTableHeaders() {
         List<String> headers = this.initCommonsHeaders();
-        this.addPositionHeaders(headers);
+        this.addMousePositionHeaders(headers, false);
+        headers.add(this.i18n.s("mouseClickButtonColumnName"));
         headers.add(this.i18n.s("captureTimestampColumnName"));
         return headers;
     }
@@ -26,22 +27,33 @@ class MouseClicksPanel extends BasePanel {
     @Override
     void updateData(String data) {
         MouseClick mouseClick = gson.fromJson(data, MouseClick.class);
-        Object[] rowData = new String[]{
+        Object[] rowData = new Object[]{
                 mouseClick.getBrowser(),
                 mouseClick.getPageUrl(),
                 mouseClick.getPageTitle(),
-                String.valueOf(mouseClick.getxPage()),
-                String.valueOf(mouseClick.getyPage()),
-                String.valueOf(mouseClick.getxClient()),
-                String.valueOf(mouseClick.getyClient()),
-                String.valueOf(mouseClick.getxScreen()),
-                String.valueOf(mouseClick.getyScreen()),
-                String.valueOf(mouseClick.getxMovement()),
-                String.valueOf(mouseClick.getyMovement()),
-                String.valueOf(mouseClick.getCaptureTimestamp())
+                mouseClick.getxPage(),
+                mouseClick.getyPage(),
+                mouseClick.getxClient(),
+                mouseClick.getyClient(),
+                mouseClick.getxScreen(),
+                mouseClick.getyScreen(),
+                this.getButtonAsString(mouseClick.getButton()),
+                mouseClick.getCaptureTimestamp()
         };
         this.tableModel.addRow(rowData);
-        /*int rowCount = this.table.getRowCount();
-        this.tableModel.fireTableRowsInserted(rowCount, rowCount + 1);*/
+    }
+
+    private String getButtonAsString(Integer which){
+        String value = "";
+        if(which == 0){
+            value = this.i18n.s("leftMouseClickValue");
+        }
+        else if(which == 1){
+            value = this.i18n.s("centerMouseClickValue");
+        }
+        else if(which == 2){
+            value = this.i18n.s("rightMouseClickValue");
+        }
+        return value;
     }
 }

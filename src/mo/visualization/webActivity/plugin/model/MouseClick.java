@@ -10,8 +10,7 @@ public class MouseClick {
     private Long yClient;
     private Long xScreen;
     private Long yScreen;
-    private Long xMovement;
-    private Long yMovement;
+    private Integer button;
     private Long captureTimestamp;
 
     public String getBrowser() {
@@ -86,20 +85,12 @@ public class MouseClick {
         this.yScreen = yScreen;
     }
 
-    public Long getxMovement() {
-        return xMovement;
+    public Integer getButton() {
+        return button;
     }
 
-    public void setxMovement(Long xMovement) {
-        this.xMovement = xMovement;
-    }
-
-    public Long getyMovement() {
-        return yMovement;
-    }
-
-    public void setyMovement(Long yMovement) {
-        this.yMovement = yMovement;
+    public void setButton(Integer button) {
+        this.button = button;
     }
 
     public Long getCaptureTimestamp() {
