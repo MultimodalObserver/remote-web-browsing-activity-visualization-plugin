@@ -84,4 +84,11 @@ public class PlayerPanel extends JTabbedPane{
         panel.updateData(dataMessageData);
     }
 
+    public void clearPanelsTables(){
+        for(Object key : this.panelsMap.keySet()){
+            BasePanel panel = this.panelsMap.get(key.toString());
+            SwingUtilities.invokeLater(panel::clearTable);
+        }
+    }
+
 }

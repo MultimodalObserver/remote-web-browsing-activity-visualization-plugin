@@ -27,9 +27,17 @@ public class RemoteWebActivityVisualizationConfiguration implements Visualizable
 
     @Override
     public void onMessageReceived(Object o, PetitionResponse petitionResponse) {
-        if(petitionResponse.getType().equals(PLUGIN_MESSAGE_KEY) && petitionResponse.getHashMap().containsKey(CONTENT_MESSAGE_KEY)){
-            String jsonData = petitionResponse.getHashMap().get(CONTENT_MESSAGE_KEY).toString();
-            this.player.getPanel().updatePanelData(jsonData);
+        if(petitionResponse.getType().equals(PLUGIN_MESSAGE_KEY)){
+            if(petitionResponse.getHashMap().containsKey(CONTENT_MESSAGE_KEY)){
+                String jsonData = petitionResponse.getHashMap().get(CONTENT_MESSAGE_KEY).toString();
+                this.player.getPanel().updatePanelData(jsonData);
+            }
+            /*else if(petitionResponse.getHashMap().containsKey("stopCapture")){
+                String stopType = petitionResponse.getHashMap().get("stopCapture").toString();
+                if(stopType.equals("logic")){
+                    this.player.getPanel().clearPanelsTables();
+                }
+            }*/
         }
     }
 

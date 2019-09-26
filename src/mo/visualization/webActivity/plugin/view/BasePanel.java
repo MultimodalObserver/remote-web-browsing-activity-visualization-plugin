@@ -12,9 +12,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 abstract class BasePanel extends JPanel {
-    /*protected JLabel noDataLabel;*/
     DefaultTableModel tableModel;
-    JTable table;
+    private JTable table;
     I18n i18n;
     List<String> tableHeaders;
     final Gson gson;
@@ -31,20 +30,12 @@ abstract class BasePanel extends JPanel {
     abstract List<String> getTableHeaders();
     abstract void updateData(String data);
 
-
-
-    void showPanel(){
-        this.setVisible(true);
-    }
-
     private void initComponents(){
         /* Iniciamos la tabla y el modelo*/
         this.tableModel = new DefaultTableModel();
         this.table = new JTable(this.tableModel);
         this.table.setFillsViewportHeight(true);
-        this.table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         this.table.setCellSelectionEnabled(true);
-        this.table.setShowHorizontalLines(false);
         this.table.tableChanged(null);
         JScrollPane scrollPane = new JScrollPane(this.table);
         //this.noDataLabel = new JLabel(this.i18n.s("noDataLabelText"));
@@ -97,5 +88,9 @@ abstract class BasePanel extends JPanel {
             int columnWidth = Math.round(this.columnWidths[i] * tableWidth);
             column.setPreferredWidth(columnWidth);
         }
+    }
+
+    void clearTable(){
+        this.tableModel.setRowCount(0);
     }
 }
