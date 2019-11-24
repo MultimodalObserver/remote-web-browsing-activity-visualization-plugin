@@ -1,4 +1,4 @@
-# MO Web Browsing Activity Capture Plugin
+# MO Remote Web Browsing Activity Visualization Plugin
 
 Developed by Abraham Cerda (abraham.cerda@usach.cl).
 
